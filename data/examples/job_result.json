@@ -1,0 +1,49 @@
+{
+  "job_id": "4e12057485dd4ac9a8138403273a27cd",
+  "poem": {
+    "poem_id": "jing-ye-si",
+    "title": "静夜思",
+    "author": "李白",
+    "dynasty": "唐",
+    "text": [
+      "床前明月光",
+      "疑是地上霜",
+      "举头望明月",
+      "低头思故乡"
+    ],
+    "pinyin": [
+      "chuáng qián míng yuè guāng",
+      "yí shì dì shàng shuāng",
+      "jǔ tóu wàng míng yuè",
+      "dī tóu sī gù xiāng"
+    ],
+    "translation": "明亮的月光洒在床前，仿佛地上铺了一层白霜。诗人抬头望着明月，又低下头思念远方的故乡。",
+    "appreciation": "诗歌以月光、白霜和抬头低头的动作构成清晰画面。",
+    "knowledge_points": [
+      "作者李白，唐代诗人。",
+      "核心意象是明月，主题是羁旅中的思乡之情。"
+    ],
+    "learning_steps": [
+      "朗读全诗。",
+      "抓住“举头、低头”体会思乡之情。"
+    ]
+  },
+  "quiz": [
+    {
+      "question_id": "objective-1",
+      "kind": "objective",
+      "prompt": "《静夜思》的作者是谁？",
+      "points": 20,
+      "options": [
+        {
+          "label": "A",
+          "text": "李白"
+        },
+        {
+          "label": "B",
+          "text": "杜甫"
+        }
+      ]
+    }
+  ]
+}
