@@ -1,0 +1,6 @@
+torch==2.3.1
+transformers==4.45.2
+accelerate==0.34.2
+autoawq==0.2.6
+autoawq-kernels==0.0.7
+modelscope==1.37.1

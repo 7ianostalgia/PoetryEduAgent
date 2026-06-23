@@ -1,0 +1,13 @@
+# PoetryEduAgent gpu 模式依赖清单
+#
+# 不要直接执行：
+#   pip install -r requirements-gpu.txt
+#
+# gpu 模式由四个隔离环境组成：
+#   1. 主服务 .venv：requirements-dev.txt
+#   2. Qwen：environments/qwen14b-awq.txt
+#   3. Kolors：environments/kolors.txt
+#   4. Qwen-VL：environments/qwen-vl.txt
+#
+# 使用 scripts/setup_gpu.sh 创建或复用这些环境，避免冲突的
+# PyTorch、Transformers 与 Diffusers 版本被安装到同一个环境。
