@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# 编辑器与系统文件
+.DS_Store
+.idea/
+.vscode/
+
+# 本地配置与密钥
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# 旧数据库、副本和临时数据库
+data/legacy/
+data/source/
+data/raw/
+data/*.bak
+data/*.backup
+data/*.old
+data/*-wal
+data/*-shm
+data/poetry_edu_runtime.db
+
+# 模型、缓存与运行输出
+models/
+checkpoints/
+weights/
+outputs/
+output/
+runs/
+logs/
+cache/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+
+# data/poetry_edu.db 是需要提交的新数据库，不要添加 data/*.db 规则。
