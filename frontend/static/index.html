@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="诗境智学：教师备课与学生诗词学习双端古诗智能体。" />
+    <meta name="poetryedu-jobs-api" content="/api/learning/jobs" />
+    <title>诗境智学 · 古诗文教学智能体</title>
+    <link rel="stylesheet" href="./styles.css?v=20260623" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="brand" id="brand-home" type="button" aria-label="返回首页">
+        <span class="brand__seal">诗</span>
+        <span><strong>诗境智学</strong><small>古诗文教学智能体</small></span>
+      </button>
+      <nav class="stepbar" id="stepbar" aria-label="任务步骤"></nav>
+      <div class="role-switch" aria-label="使用身份">
+        <button class="active" data-role="teacher" type="button">教师端</button>
+        <button data-role="student" type="button">学生端</button>
+        <button id="history-button" type="button">历史任务</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="page active input-page" id="view-input">
+        <div class="intro-copy">
+          <span class="eyebrow">多智能体协同教学</span>
+          <h1 id="hero-title">从一首诗，生成一堂<br /><em>可直接使用的课</em></h1>
+          <p id="hero-description">
+            面向教师的备课工作台：连接本地知识库、Qwen、Kolors、
+            Qwen-VL 与独立文字审核，保留完整生成证据。
+          </p>
+          <div class="role-goals" id="role-goals"></div>
+        </div>
+
+        <form class="setup-card" id="learning-form">
+          <div class="card-heading">
+            <div><span>STEP 01</span><h2 id="form-title">创建备课任务</h2></div>
+            <b id="runtime-badge">正在连接后端</b>
+          </div>
+
+          <label class="field">
+            <span>古诗文 / 诗句</span>
+            <textarea id="poem" rows="4" required>床前明月光，疑是地上霜。
+举头望明月，低头思故乡。</textarea>
+          </label>
+
+          <div class="field-grid">
+            <label class="field">
+              <span>学段</span>
+              <select id="stage">
+                <option value="primary">小学</option>
+                <option value="junior">初中</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>年级</span>
+              <select id="grade"></select>
+            </label>
+            <label class="field">
+              <span id="level-label">班级学习水平</span>
+              <select id="level">
+                <option value="basic">基础</option>
+                <option value="medium" selected>中等</option>
+                <option value="advanced">较好</option>
+              </select>
+            </label>
+          </div>
+
+          <fieldset class="field chips-field">
+            <legend id="weakness-label">重点教学目标</legend>
+            <div class="chips" id="weaknesses">
+              <label><input type="checkbox" value="word_meaning" checked /><span>字词理解</span></label>
+              <label><input type="checkbox" value="imagery_analysis" checked /><span>画面想象</span></label>
+              <label><input type="checkbox" value="emotion_summary" checked /><span>情感体会</span></label>
+              <label><input type="checkbox" value="writing_technique" /><span>表达手法</span></label>
+            </div>
+          </fieldset>
+
+          <label class="field">
+            <span id="requirements-label">补充备课要求</span>
+            <input id="custom-requirements" maxlength="500" placeholder="例如：导入控制在 3 分钟内，增加小组讨论问题。" />
+          </label>
+
+          <button class="primary-button" type="submit">
+            <span id="submit-label">开始生成教师资源包</span><b>→</b>
+          </button>
+          <p class="form-note" id="runtime-note">正在识别当前运行模式…</p>
+        </form>
+      </section>
+
+      <section class="page processing-page" id="view-processing">
+        <div class="process-head">
+          <div>
+            <span class="section-kicker">STEP 02 · DEV / GPU PIPELINE</span>
+            <h2>多 Agent 异步协同大盘</h2>
+            <p>将鼠标悬浮在任一节点：运行中查看日志，完成后查看对应 JSON / 成果。</p>
+          </div>
+          <div class="job-summary">
+            <span class="live-dot"></span>
+            <div><b id="job-status-text">正在创建任务</b><small id="job-id-text">等待任务编号</small></div>
+            <strong id="job-progress">0%</strong>
+          </div>
+        </div>
+
+        <div class="pipeline">
+          <article class="agent-card root-agent" data-agent-id="poem_analysis">
+            <span class="agent-number">01</span><i>析</i>
+            <h3>诗句解析 Agent</h3>
+            <p>学情诊断、诗意、意象、情感与教学重点</p>
+            <div class="agent-state"><u></u><span>等待中</span></div>
+            <aside class="agent-popover"><header><b>诗句解析 Agent</b><span>等待中</span></header><pre></pre></aside>
+          </article>
+
+          <div class="split-lines" aria-hidden="true"><span></span><span></span></div>
+
+          <div class="branches">
+            <section class="branch branch-image">
+              <header><span>图像生成支路</span><small>标准 JSON → 编译 → 生图 → 看图审核</small></header>
+              <div class="branch-flow">
+                <article class="agent-card" data-agent-id="image_prompt">
+                  <span class="agent-number">2A</span><i>景</i><h3>意象提取 Agent</h3>
+                  <p>形成标准化画面 JSON 与禁忌元素</p>
+                  <div class="agent-state"><u></u><span>等待中</span></div>
+                  <aside class="agent-popover"><header><b>意象提取 Agent</b><span>等待中</span></header><pre></pre></aside>
+                </article>
+                <b class="arrow">→</b>
+                <article class="agent-card" data-agent-id="prompt_compiler">
+                  <span class="agent-number">3A</span><i>译</i><h3>画面指令编译器</h3>
+                  <p>将诗意结构转换为安全的画面生成指令</p>
+                  <div class="agent-state"><u></u><span>等待中</span></div>
+                  <aside class="agent-popover"><header><b>画面指令编译器</b><span>等待中</span></header><pre></pre></aside>
+                </article>
+                <b class="arrow">→</b>
+                <article class="agent-card" data-agent-id="kolors">
+                  <span class="agent-number">4A</span><i>画</i><h3>Kolors 生图 Agent</h3>
+                  <p>生成意境图，失败时最多重绘一次</p>
+                  <div class="agent-state"><u></u><span>等待中</span></div>
+                  <aside class="agent-popover"><header><b>Kolors 生图 Agent</b><span>等待中</span></header><pre></pre></aside>
+                </article>
+                <b class="arrow">→</b>
+                <article class="agent-card" data-agent-id="vision_reviewer">
+                  <span class="agent-number">5A</span><i>审</i><h3>Qwen-VL 图片审核</h3>
+                  <p>核验人物、明月、床榻和错误元素</p>
+                  <div class="agent-state"><u></u><span>等待中</span></div>
+                  <aside class="agent-popover popover-right"><header><b>Qwen-VL 图片审核</b><span>等待中</span></header><pre></pre></aside>
+                </article>
+              </div>
+            </section>
+
+            <section class="branch branch-text">
+              <header><span>教学资源支路</span><small id="resource-branch-note">面向教师的备课资源与固定四题</small></header>
+              <div class="branch-flow compact-flow">
+                <article class="agent-card wide-agent" data-agent-id="text_resources">
+                  <span class="agent-number">2B</span><i>教</i><h3 id="resource-agent-title">课堂资源 Agent</h3>
+                  <p id="resource-agent-description">生成导入语、分层讲解、问题链与测评</p>
+                  <div class="agent-state"><u></u><span>等待中</span></div>
+                  <aside class="agent-popover"><header><b>课堂资源 Agent</b><span>等待中</span></header><pre></pre></aside>
+                </article>
+                <b class="arrow">→</b>
+                <article class="agent-card wide-agent" data-agent-id="text_reviewer">
+                  <span class="agent-number">3B</span><i>核</i><h3>DeepSeek-V4-Flash / Qwen 文字审核</h3>
+                  <p>独立核验知识、适龄度、问题与 rubric</p>
+                  <div class="agent-state"><u></u><span>等待中</span></div>
+                  <aside class="agent-popover popover-right"><header><b>文字审核 Agent</b><span>等待中</span></header><pre></pre></aside>
+                </article>
+              </div>
+            </section>
+          </div>
+
+          <div class="merge-lines" aria-hidden="true"><span></span><span></span></div>
+
+          <article class="agent-card gate-agent" data-agent-id="final_gate">
+            <span class="agent-number">06</span><i>门</i>
+            <h3>双门禁判定</h3>
+            <p>仅当 text_pass 与 vision_pass 同时为真才最终通过</p>
+            <div class="agent-state"><u></u><span>等待中</span></div>
+            <aside class="agent-popover popover-right"><header><b>双门禁判定</b><span>等待中</span></header><pre></pre></aside>
+          </article>
+        </div>
+
+        <div class="progress-track"><span id="progress-bar"></span></div>
+        <div class="process-foot">
+          <span>gpu 模式任务可能需要数分钟；dev 模式会快速返回演示结果。</span>
+          <button id="cancel-view-button" type="button">返回配置</button>
+        </div>
+      </section>
+
+      <section class="page result-page" id="view-teacher-result">
+        <div class="result-head">
+          <div><span class="section-kicker">STEP 03 · TEACHER PACKAGE</span><h2>智能教研备课资源包</h2></div>
+          <div class="result-actions"><span class="decision-badge" id="teacher-decision"></span><button id="download-result" type="button">下载资源包 ZIP</button></div>
+        </div>
+        <div class="result-grid">
+          <article class="image-panel">
+            <img id="teacher-image" alt="古诗意境生成图" />
+            <div class="image-placeholder">图片尚未生成</div>
+            <footer id="teacher-image-review"></footer>
+          </article>
+          <article class="resource-panel">
+            <div class="resource-card accent module-card" data-module="classroom_intro"><span>课堂导入</span><p id="teacher-intro"></p><button class="feedback-trigger" type="button">反馈此模块</button></div>
+            <div class="resource-card module-card" data-module="teaching_goals"><span>教学目标</span><ul id="teacher-objectives"></ul><button class="feedback-trigger" type="button">反馈此模块</button></div>
+            <div class="resource-card module-card" data-module="teaching_key_difficulties"><span>教学重难点</span><ul id="teacher-focus"></ul><button class="feedback-trigger" type="button">反馈此模块</button></div>
+            <div class="resource-card module-card" data-module="layered_explanations"><span>分层讲解</span><div id="teacher-layers"></div><button class="feedback-trigger" type="button">反馈此模块</button></div>
+            <div class="resource-card module-card" data-module="guided_questions"><span>启发式问题链</span><ol id="teacher-questions"></ol><button class="feedback-trigger" type="button">反馈此模块</button></div>
+            <div class="resource-card module-card" data-module="classroom_activities"><span>课堂活动</span><ul id="teacher-activities"></ul><button class="feedback-trigger" type="button">反馈此模块</button></div>
+            <div class="resource-card module-card" data-module="quiz"><span>学生测评题预览</span><div id="teacher-quiz-preview"></div><button class="feedback-trigger" type="button">反馈此模块</button></div>
+          </article>
+        </div>
+        <div class="evidence-grid">
+          <article><h3>教学依据</h3><p id="teacher-analysis-summary"></p><details><summary>查看技术信息</summary><pre id="teacher-analysis"></pre></details></article>
+          <article><h3>图片生成说明</h3><p>系统已根据诗意生成课堂配图，并完成必要的安全与内容检查。</p><details><summary>查看技术信息</summary><pre id="teacher-image-tech"></pre></details></article>
+          <article><h3>审核结论</h3><p id="teacher-review-summary"></p><dl class="audit-summary"><div><dt>审核状态</dt><dd id="teacher-audit-status"></dd></div><div><dt>文本审核</dt><dd id="teacher-text-status"></dd></div><div><dt>图像审核</dt><dd id="teacher-image-status"></dd></div><div><dt>风险提示</dt><dd id="teacher-risk"></dd></div><div><dt>建议</dt><dd id="teacher-suggestion"></dd></div></dl><details><summary>查看技术信息</summary><pre id="teacher-reviews"></pre></details></article>
+        </div>
+        <button class="secondary-button restart-button" type="button">重新创建任务</button>
+      </section>
+
+      <section class="page result-page" id="view-student-result">
+        <div class="result-head">
+          <div><span class="section-kicker">STEP 03 · POETRY STUDY</span><h2>我的诗词学习空间</h2></div>
+          <span class="decision-badge" id="student-decision"></span>
+        </div>
+        <div class="student-study">
+          <article class="study-image"><img id="student-image" alt="古诗意境图" /><div class="image-placeholder">图片尚未生成</div></article>
+          <article class="study-content">
+            <span>先读一读</span><h3 id="student-intro-title">一起走进诗里的画面</h3>
+            <blockquote class="original-poem" id="student-poem"></blockquote>
+            <p id="student-intro"></p>
+            <div class="student-tags"><div><b>字词卡</b><span id="student-word-cards"></span></div><div><b>情感标签</b><span id="student-emotion-tags"></span></div></div>
+            <div class="image-guide"><b>看图小任务</b><p id="student-image-guide"></p></div>
+            <div class="study-steps" id="student-layers"></div>
+          </article>
+        </div>
+        <article class="student-questions"><h3>带着问题想一想</h3><ol id="student-guided-questions"></ol></article>
+        <article class="quiz-section">
+          <div><span class="section-kicker">STEP 04</span><h2>四题学习挑战</h2><p>两道客观题即时反馈，两道主观题由答题评估 Agent 按评分标准点评。</p></div>
+          <form id="quiz-form"></form>
+        </article>
+        <button class="secondary-button restart-button" type="button">学习另一首诗</button>
+      </section>
+
+      <section class="page result-page" id="view-report">
+        <div class="result-head"><div><span class="section-kicker">学习报告</span><h2>我的诗词学习报告</h2></div><button class="secondary-button" id="back-to-study" type="button">返回学习内容</button></div>
+        <article class="report-panel">
+          <div class="report-score"><strong id="report-score">0</strong><span>学习得分</span></div>
+          <div class="report-sections">
+            <section><h3>掌握较好</h3><ul id="report-good"></ul></section>
+            <section><h3>需要加强</h3><ul id="report-improve"></ul></section>
+            <section><h3>推荐复习</h3><ul id="report-path"></ul></section>
+          </div>
+        </article>
+      </section>
+
+      <section class="page result-page" id="view-history">
+        <div class="result-head"><div><span class="section-kicker">HISTORY</span><h2 id="history-title">历史任务</h2></div><button class="secondary-button" id="history-back" type="button">返回首页</button></div>
+        <div class="history-list" id="history-list"></div>
+        <div class="history-pager"><button id="history-prev" type="button">上一页</button><span id="history-page"></span><button id="history-next" type="button">下一页</button></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog id="feedback-dialog">
+      <form method="dialog" id="feedback-form">
+        <div class="card-heading"><div><span>教师反馈</span><h2>让 Agent 重做指定模块</h2></div><button value="cancel" aria-label="关闭" type="submit">×</button></div>
+        <label class="field"><span>目标模块</span><select id="feedback-module" required></select></label>
+        <label class="field"><span>反馈内容</span><textarea id="feedback-text" rows="5" required maxlength="500" placeholder="请说明需要调整的内容、课堂对象或表达方式。"></textarea></label>
+        <button class="primary-button" id="feedback-submit" value="default" type="submit"><span>提交反馈并刷新模块</span><b>→</b></button>
+      </form>
+    </dialog>
+    <script src="./app.js?v=20260623"></script>
+  </body>
+</html>
