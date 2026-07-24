@@ -248,7 +248,7 @@ PoetryEduAgent/
 | gpu 模式 | `gpu` | 已准备 Qwen、Kolors 与 Qwen-VL；DeepSeek-V4-Flash Key 可选 |
 
 ```bash
-git clone https://github.com/7ianostalgia/PoemEduAgents.git
+git clone https://github.com/7ianostalgia/PoetryEduAgent.git
 ```
 
 ```bash
