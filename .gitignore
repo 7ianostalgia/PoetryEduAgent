@@ -22,15 +22,22 @@ venv/
 *.key
 secrets/
 
-# 旧数据库、副本和临时数据库
+# 数据库与运行数据只保存在本地或服务器，不提交到公开仓库
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
 data/legacy/
 data/source/
 data/raw/
 data/*.bak
 data/*.backup
 data/*.old
-data/*-wal
-data/*-shm
 data/poetry_edu_runtime.db
 
 # 模型、缓存与运行输出
@@ -47,5 +54,3 @@ cache/
 *.pt
 *.pth
 *.onnx
-
-# data/poetry_edu.db 是需要提交的新数据库，不要添加 data/*.db 规则。

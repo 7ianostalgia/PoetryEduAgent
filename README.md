@@ -141,9 +141,9 @@ flowchart LR
 | 质量控制 | JSON Schema、语义护栏、文字/图片双门禁、有限次数纠偏 |
 | 持久化 | 任务、事件、资源、图片记录、审核、反馈、答题与学习报告 |
 
-知识库与运行库相互独立：
+知识库与运行库相互独立，SQLite 文件只保存在本地或服务器，不提交到公开仓库：
 
-- `data/poetry_edu.db`：可版本化的诗词与教学知识资产；
+- `data/poetry_edu.db`：本地诗词与教学知识库；
 - `POETRY_RUNTIME_DB_PATH`：gpu 任务、学生画像、模型结果、反馈和测评记录。
 
 ## 多 Agent 设计
@@ -227,8 +227,7 @@ PoetryEduAgent/
 ├── frontend/static/        # 教师端、学生端与 Agent 大盘
 ├── assets/screenshots/     # README 项目界面截图
 ├── data/
-│   ├── examples/           # API 请求与答题示例
-│   └── poetry_edu.db       # 可公开的诗词知识库
+│   └── examples/           # API 请求与答题示例
 ├── docs/                   # 架构、API、数据库与模型接入文档
 ├── environments/          # 三个隔离 GPU 模型环境依赖
 ├── scripts/               # 安装、启动、检查与数据工具
@@ -267,6 +266,12 @@ bash scripts/setup_dev.sh
 
 ```bash
 cp .env.example .env
+```
+
+初始化本地 SQLite 知识库：
+
+```bash
+python scripts/initialize_database.py
 ```
 
 启动：

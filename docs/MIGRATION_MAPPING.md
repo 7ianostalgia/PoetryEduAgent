@@ -1,6 +1,6 @@
 # 旧 SQLite 知识迁移
 
-`scripts/migrate_database.py` 用于将旧诗词数据库中的知识资产迁移到 PoetryEduAgent 的 `data/poetry_edu.db`。迁移过程只读源库，并为每条数据保留可追溯来源。
+`scripts/migrate_database.py` 用于将旧诗词数据库中的知识资产迁移到本地 `data/poetry_edu.db`。迁移过程只读源库，并为每条数据保留可追溯来源；生成的 SQLite 文件不提交到公开仓库。
 
 ## 使用方式
 
