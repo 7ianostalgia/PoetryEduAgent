@@ -1,0 +1,36 @@
+name: Feature request
+description: Propose a focused improvement to PoetryEduAgent
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: User or teaching need
+      description: Describe the concrete problem for teachers, students, researchers, or maintainers.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Explain the workflow or behavior you would like to add.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Expected evidence
+      description: How should the change be tested, reviewed, or demonstrated?
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Project boundaries
+      options:
+        - label: The proposal preserves independent text and visual review where relevant.
+          required: true
+        - label: The proposal does not require publishing private data, credentials, or model weights.
+          required: true
